@@ -6,7 +6,9 @@ using namespace std;
 const int V = 4;
 vector<int> adj[V];
 
-/**
+/*
+ ! fad : holy 
+ todo 
  * -n번째 인덱스에 삽입, 삭제: O(n)
  * -마지막 요소에 삽입, 삭제: O(1)
  * -특정요소 탐색: O(n)
