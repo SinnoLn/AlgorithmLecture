@@ -7,7 +7,7 @@
 */
 
 /*
-* 수도코드 1
+! 수도코드 1
 * 시작점인 u를 방문처리 -> 큐에 push
 * q.size()만큼 while반복문을 돌면서 큐 앞단에 있는 u를 다시 끄집어내어 그 u를 중심으로 인접한 노드들을 탐색
 * 방문한 정점은 다시 방문하지 않고 방문처리를 하면서 queue에 푸시하며 방문처리를 함
@@ -21,16 +21,20 @@
 *         q.pop()
 *         for each v G.Adj[u]
 *             if v.visited == false
-*                v.visited = true  -------------> 코드의 차이점
+!                v.visited = true  -------------> 코드의 차이점
 *                q.push(v)
 */
 
+
 /*
-* 수도코드 2
+! 가중치가 같은 그래프에서만 BFS사용. 다른 그래프에서 최단거리 알고리즘은
+! 다익스트라, 벨만포드등을 써야함 
+*
+! 수도코드 2
 * 수도코드 1은 방문처리만을 위한 코드
 * 하지만 보통 문제에서 BFS를 쓸 때에는 가중치가 같은 그래프 내에서 최단거리 알고리즘으로 쓰임
 * 그러기 위해 "최단거리 배열"을 방문하면서 만들어주어야 하는데 다음과 같은 수도코드 사용
-*
+* 참고로 가중치가 같은때밖에 못씀. 왜냐면 수도코드가 +1이니까
 * 
 * BFS(G, u)
 *     u.visited = 1
@@ -40,7 +44,7 @@
 *         q.pop()
 *         for each v G.Adj[u]
 *             if v.visited == false
-*                v.visited = u.visited + 1  ----------> 코드의 차이점
+!                v.visited = u.visited + 1  ----------> 코드의 차이점
 *                q.push(v)
 */
 
@@ -53,10 +57,6 @@ vector<int> adj[100];
 int visited[100];
 int nodeList[] = {10, 12, 14, 16, 18, 20, 22, 24};
 void bfs(int here){
-    for(int i=1; i <= 3; i++)
-    {
-        
-    }
     queue<int> q;
     visited[here] = 1;
     q.push(here);
@@ -80,7 +80,7 @@ int main() {
 
     adj[20].push_back(22);
     adj[20].push_back(24);
-    bfs(10);
+    bfs(10); //10번 노드에서 bfs 시작
     for(int i : nodeList){
         cout << i << " : " << visited[i] << '\n';
     }
