@@ -45,12 +45,14 @@ const int max_n = 104;
 int dy[4] = {-1, 0, 1, 0};
 int dx[4] = {0, 1, 0, -1};
 
-int n, m, a[max_n][max_n], visited[max_n][max_n], y, x, sy, sx, ey, ex;
+int n, m, a[max_n][max_n], visited[max_n][max_n], y, x;
+int sy, sx, ey, ex;
+//여기서는 출발지점의 좌표와 도착지점의 좌표를 정할 수 있다!!
 
 int main() {
-    cin >> n >> m;
-    cin >> sy >> sx;
-    cin >> ey >> ex;
+    cin >> n >> m; //미로의 크기 설정
+    cin >> sy >> sx; //시작 좌표 설정 start (y, x)
+    cin >> ey >> ex; //끝 좌표 설정 end (y, x)
     
     for(int i =0; i<n; i++){
         for(int j=0; j<m; j++){
@@ -59,10 +61,12 @@ int main() {
     }
 
     queue<pair<int, int>> q;
-    visited[sy][sx] = 1;
+    visited[sy][sx] = 1; //출발점에서 출발할때 이미 당근 한 개를 소모한 상태라고 가정 
     q.push({sy, sx});
+    
+    //bfs 알고리즘의 핵심
     while(q.size()){
-        tie(y,x) = q.front();
+        tie(y,x) = q.front(); //여러 변수 한번에 초기화 방법
         q.pop();
         for(int i=0; i<4; i++){
             int ny = y + dy[i];
