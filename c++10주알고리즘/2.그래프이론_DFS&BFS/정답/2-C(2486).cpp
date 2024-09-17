@@ -42,72 +42,50 @@
 
  * 예제출력2
    6
-
- * 최단거리가 아니니까 단순하게 BFS DFS
- * 근데 DFS 코드가 단순하니까 DFS코드 ㄱㄱ
- * 단순하게 지역 높이를 줬으니까 n초과면 1, 나머지는 0으로 해서 똑같이 dfs로 풀면 될것같음
- ! 그렇게 간단하지 않았음
- ! 비가 오는 모든경우를 파악해서 최대 안전지역을 구해야했음
- ! 비가 아예 안올때를 고려하지 않았음 
- ! dfs는 맞음 
- */
+*/
 
 #include <iostream>
 
 using namespace std;
-
-void dfs(int y, int x, int d);
-
-const int V = 105;
+int a[101][101], visited[101][101], n, temp, ret = 1;
 int dy[4] = {-1, 0, 1, 0};
-int dx[4] = {0 ,1, 0, -1};
-int a[V][V];
-bool visited[V][V];
-int h, n, ret, ny, nx, max_h = -1, max_ = -1, d;
-
-int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
-
-    cin >> h;
-    for(int i=0; i<h; i++){
-      for(int j=0; j<h; j++){
-        cin >> n;
-        if(max_h < n) max_h = n;
-        a[i][j] = n;
-      }
-    }
-    
-    for(d=0; d<=max_h; d++){ //비가 전혀 오지 않았을때도 고려
-        for(int i=0; i<h; i++){
-          for(int j=0; j<h; j++){
-            if(a[i][j] > d && !visited[i][j]){
-              dfs(i, j, d);
-              ret ++;
-            }
-          }
-        }
-        max_ = max(max_, ret); 
-        
-        //초기화
-        ret = 0;
-        for(int i=0; i<h; i++){
-            for(int j=0; j<h; j++)
-                visited[i][j] = 0;
-        }
-    }
-    cout << max_ << '\n';
-  return 0;
-}
+int dx[4] = {0, 1, 0, -1};
 
 void dfs(int y, int x, int d){
   visited[y][x] = 1;
-  for(int i=0; i<4; i++) {
-    ny = y + dy[i];
-    nx = x + dx[i];
-    if(ny<0 || nx<0 || ny >= h || nx >= h) continue;
-    if(a[ny][nx] > d && !visited[ny][nx]) {
-      dfs(ny, nx, d);
+  for(int i = 0; i<4; i++){
+    int ny = y+dy[i];
+    int nx = x+dx[i];
+    if(ny < 0 || nx < 0 || ny >= n || nx >= n) continue;
+    if(!visited[ny][nx] && a[ny][nx] > d) dfs(ny, nx, d);
+  }
+  return;
+}
+
+int main() {
+
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+
+  cin >> n;
+  for(int i=0; i<n; i++){
+    for(int j=0; j<n; j++){
+      cin >> a[i][j];
     }
   }
+  for(int d=1; d<101; d++){
+    fill(&visited[0][0], &visited[0][0] + 101*101, 0); //이게 뭔코드지
+    int cnt = 0;
+    for(int i = 0; i<n; i++){
+      for(int j=0; j<n; j++){
+        if(a[i][j] > d && !visited[i][j]) {
+          dfs(i, j, d);
+          cnt++;
+        }
+      }
+    }
+    ret = max(ret,cnt);
+  }
+  cout << ret << '\n';
+  return 0;
 }
