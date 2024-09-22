@@ -6,6 +6,7 @@ const int dy[4] = {-1,0,1,0};
 const int dx[4] = {0,1,0,-1};
 vector<int> ret;
 
+//이 문제의 핵심은 int형 dfs!!!!!!!!!!!!!!!!!!!
 int dfs(int y, int x){
     visited[y][x] = 1;
     int ret = 1;
@@ -39,6 +40,9 @@ int main() {
             }
         }
     }
+    sort(ret.begin(), ret.end());
+    cout << ret.size() <<"\n";
+    for(int a : ret) cout << a <<" ";
 
     return 0;
 }
